@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2;
+  justify-content: space-between;
+  background: black;
+  padding: 1rem;
+
+  a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+
+    &:hover {
+      color: blue;
+    }
+  }
+}
+
+main {
+  .container {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    & #startBtn {
+      padding: 0.5rem 1rem;
+      width: 15%;
+      cursor: pointer;
+      background: black;
+      color: white;
+      outline: none;
+      border: none;
+      border-radius: 10px;
+    }
+  }
+}
