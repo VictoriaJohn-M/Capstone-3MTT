@@ -113,17 +113,22 @@ async function displayTasks() {
     ).json();
     if (res?.length) {
       tasksContainer.innerHTML = `
-            <h2>Tasks</h2>
             ${res
               .map(
                 ({ deadline, description, priority, title }) => `
                   <div class="task">
-                    <p><strong>Deadline:</strong> ${new Date(
-                      deadline
-                    ).toDateString()}</p>
-                    <p><strong>Description:</strong> ${description}</p>
-                    <p><strong>Priority:</strong> ${priority}</p>
-                    <p><strong>Title:</strong> ${title}</p>
+                   <div class="details">
+                      <p><strong>Deadline:</strong> ${new Date(
+                        deadline
+                      ).toDateString()}</p>
+                      <p><strong>Description:</strong> ${description}</p>
+                      <p><strong>Priority:</strong> ${priority}</p>
+                      <p><strong>Title:</strong> ${title}</p>
+                    </div>
+                   <div class="actions">
+                      <p>Edit</p>
+                      <p>Delete</p>
+                   </div>
                   </div>
                 `
               )

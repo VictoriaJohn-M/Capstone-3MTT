@@ -1,5 +1,68 @@
-.backBtn {
-  border: 1px solid gray;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
+main {
+  padding: 1rem;
+
+  #search {
+    padding: 0.6rem 1rem;
+    border-radius: 15px;
+    border: 1px solid gray;
+    width: 30%;
+  }
+
+  .backBtn {
+    border: 1px solid gray;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+  }
+
+  #tasksContainer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .task {
+      border: 1px solid black;
+      padding: 1rem;
+      border-radius: 10px;
+      width: 30%;
+      margin: 1rem 0;
+      background: white;
+      box-shadow: 2px 5px 3px 1px gray;
+
+      .details {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 0.6rem;
+      }
+
+      .actions {
+        padding: 1rem 0;
+        display: flex;
+        justify-content: space-between;
+
+        p {
+          cursor: pointer;
+
+          &:first-of-type {
+            color: rgb(42, 159, 212);
+
+            &:hover {
+              color: rgb(19, 170, 240);
+            }
+          }
+
+          &:last-of-type {
+            color: rgb(230, 94, 94);
+
+            &:hover {
+              color: rgb(230, 94, 94);
+            }
+          }
+        }
+      }
+    }
+  }
 }
