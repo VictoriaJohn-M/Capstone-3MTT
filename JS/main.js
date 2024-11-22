@@ -115,8 +115,8 @@ async function displayTasks() {
       tasksContainer.innerHTML = `
             ${res
               .map(
-                ({ deadline, description, priority, title }) => `
-                  <div class="task">
+                ({ _id, deadline, description, priority, title }) => `
+                  <div class="task" data-id="${_id}">
                    <div class="details">
                       <p><strong>Deadline:</strong> ${new Date(
                         deadline
@@ -124,10 +124,11 @@ async function displayTasks() {
                       <p><strong>Description:</strong> ${description}</p>
                       <p><strong>Priority:</strong> ${priority}</p>
                       <p><strong>Title:</strong> ${title}</p>
+                      <p class="hidden">${_id}</p>
                     </div>
                    <div class="actions">
-                      <p>Edit</p>
-                      <p>Delete</p>
+                      <p class="editBtn">Edit</p>
+                      <p class="deleteBtn">Delete</p>
                    </div>
                   </div>
                 `
@@ -141,9 +142,125 @@ async function displayTasks() {
   }
 }
 
-displayTasks();
+document.addEventListener("DOMContentLoaded", async function () {
+  const res = await displayTasks();
 
-document.getElementById("startBtn").addEventListener("click", (event) => {
-  event.preventDefault();
-  window.location.href = "login.html";
+  // search
+  document.getElementById("search").addEventListener("input", (event) => {
+    let searchTerm = event.target.value;
+    console.log("searchTerm: ", searchTerm);
+    const filteredTasks = filterTasks(searchTerm, res);
+    tasksContainer.innerHTML = `
+            ${filteredTasks
+              .map(
+                ({ _id, deadline, description, priority, title }) => `
+                  <div class="task" data-id="${_id}">
+                   <div class="details">
+                      <p><strong>Deadline:</strong> ${new Date(
+                        deadline
+                      ).toDateString()}</p>
+                      <p><strong>Description:</strong> ${description}</p>
+                      <p><strong>Priority:</strong> ${priority}</p>
+                      <p><strong>Title:</strong> ${title}</p>
+                      <p class="hidden">${_id}</p>
+                    </div>
+                   <div class="actions">
+                      <p class="editBtn">Edit</p>
+                      <p class="deleteBtn">Delete</p>
+                   </div>
+                  </div>
+                `
+              )
+              .join("")}
+          `;
+  });
 });
+
+const filterTasks = (searchTerm, tasks) =>
+  tasks?.filter(({ description, title, priority }) => {
+    let rgx = new RegExp(`^${searchTerm}`, "ig");
+    return description.match(rgx) || title.match(rgx) || priority.match(rgx);
+  });
+
+// get started button on landing page
+document.getElementById("startBtn").addEventListener("click", () => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    window.location.href = "dashboard.html";
+  } else {
+    window.location.href = "login.html";
+  }
+});
+
+// const handleTaskAction = async (event) => {
+//   console.log("handling...");
+//   const targetButton = event.target;
+//   const token = localStorage.getItem("token");
+
+//   if (
+//     (!targetButton.classList.contains("editBtn") &&
+//       !targetButton.classList.contains("deleteBtn")) ||
+//     !token
+//   )
+//     return;
+
+//   const taskElement = targetButton.closest(".task");
+//   const taskId = taskElement.dataset.id;
+
+//   if (targetButton.classList.contains("deleteBtn")) {
+//     // Handle delete action
+//     console.log("deleting....");
+//     // try {
+//     //   const res = await fetch(`${baseUrl}/tasks/${taskId}`, {
+//     //     method: "DELETE",
+//     //     headers: {
+//     //       Authorization: `Bearer ${token}`,
+//     //     },
+//     //   });
+//     //   if (res.ok) {
+//     //     console.log("Task deleted successfully");
+//     //     taskElement.remove(); // Remove the task from the DOM
+//     //   } else {
+//     //     console.error("Failed to delete task");
+//     //   }
+//     // } catch (error) {
+//     //   console.error("Error deleting task:", error);
+//     // }
+//   } else if (targetButton.classList.contains("editBtn")) {
+//     // Handle edit action
+//     console.log("editing....");
+
+//     const token = localStorage.getItem("token");
+//     if (!token) return;
+
+//     // Example: Fetch current task data and open a form to edit
+//     try {
+//       const res = await fetch(`${baseUrl}/tasks/${taskId}`, {
+//         method: "GET",
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       });
+
+//       // if (res.ok) {
+//       //   const taskData = await res.json();
+//       //   console.log("Task data for editing:", taskData);
+
+//       //   // Example: Pre-fill an edit form
+//       //   document.getElementById("editFormTitle").value = taskData.title;
+//       //   document.getElementById("editFormDescription").value = taskData.description;
+//       //   document.getElementById("editFormDeadline").value = new Date(taskData.deadline).toISOString().slice(0, 16); // For input[type="datetime-local"]
+//       //   document.getElementById("editFormPriority").value = taskData.priority;
+//       //   document.getElementById("editFormId").value = taskId; // Store task ID for updating later
+
+//       //   // Show the edit form
+//       //   document.getElementById("editFormContainer").classList.remove("hidden");
+//       // } else {
+//       //   console.error("Failed to fetch task data for editing");
+//       // }
+//     } catch (error) {
+//       console.error("Error fetching task data:", error);
+//     }
+//   }
+// };
+tasksContainer.addEventListener("click", handleTaskAction);

@@ -71,12 +71,17 @@ body {
 
 @media (max-width: 768px) {
   body {
-    padding: 0.5rem;
-    form {
-      width: 100dvw;
-
-      & .btn {
+    main {
+      form {
         width: 100%;
+
+        & .btn {
+          width: 100%;
+        }
+      }
+
+      .side {
+        width: 0%;
       }
     }
   }

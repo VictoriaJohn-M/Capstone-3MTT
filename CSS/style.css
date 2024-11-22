@@ -25,6 +25,7 @@ main {
     p {
       font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
         "Lucida Sans", Arial, sans-serif;
+      font-size: 1.5rem;
     }
 
     & #startBtn {
@@ -47,7 +48,8 @@ main {
 
   .boxes {
     .box1,
-    .box2 {
+    .box2,
+    .box3 {
       width: 250px;
       height: 250px;
       padding: 2rem;
@@ -71,6 +73,26 @@ main {
       right: 6rem;
       top: 6rem;
       z-index: 3;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    .container {
+      gap: 2rem;
+
+      p {
+        font-size: 1.5rem;
+      }
+
+      & #startBtn {
+        width: 80%;
+      }
+    }
+
+    .boxes {
+      display: none;
     }
   }
 }

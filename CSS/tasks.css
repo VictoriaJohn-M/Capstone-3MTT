@@ -26,6 +26,7 @@ main {
       border: 1px solid black;
       padding: 1rem;
       border-radius: 10px;
+      min-width: 250px;
       width: 30%;
       margin: 1rem 0;
       background: white;
@@ -37,6 +38,10 @@ main {
         align-items: flex-start;
         justify-content: space-between;
         gap: 0.6rem;
+
+        .hidden {
+          display: none;
+        }
       }
 
       .actions {
@@ -63,6 +68,20 @@ main {
             }
           }
         }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    #search {
+      width: 100%;
+    }
+
+    #tasksContainer {
+      .task {
+        width: 100%;
       }
     }
   }
