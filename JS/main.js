@@ -7,7 +7,7 @@ const closeButton = document.getElementById("closeBtn");
 const tasksContainer = document.getElementById("tasksContainer");
 const token = localStorage.getItem("token");
 
-async function handleSubmit(event) {
+async function handleSignup(event) {
   event.preventDefault();
   const data = {};
   for (const [key, value] of new FormData(
@@ -25,10 +25,14 @@ async function handleSubmit(event) {
     ).json();
 
     if (res?.token) {
+      window.alert("Account creation successful!");
       localStorage.setItem("token", res.token);
       window.location.href = "login.html";
+    } else {
+      window.alert("Account creation failed");
     }
   } catch (error) {
+    window.alert("Account creation failed");
     console.log("error: ", error);
   }
 }
@@ -50,12 +54,15 @@ async function handleLogin(event) {
       })
     ).json();
 
-    if (res.token) {
+    if (res?.token) {
       window.alert("Login successful!");
       localStorage.setItem("token", res.token);
       window.location.href = "dashboard.html";
+    } else {
+      window.alert("Login failed");
     }
   } catch (error) {
+    window.alert("Login failed");
     console.log("error: ", error);
   }
 }
