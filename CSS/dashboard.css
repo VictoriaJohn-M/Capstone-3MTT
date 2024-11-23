@@ -117,16 +117,20 @@ body {
     main {
       padding: 0.5rem;
 
-      form {
+      dialog {
         width: 100%;
-        padding: 1rem;
 
-        .input-container {
+        form {
           width: 100%;
-        }
+          padding: 1rem;
 
-        button {
-          width: 100%;
+          .input-container {
+            width: 100%;
+          }
+
+          button {
+            width: 100%;
+          }
         }
       }
     }
